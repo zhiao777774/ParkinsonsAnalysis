@@ -1,0 +1,24 @@
+digraph Tree {
+node [shape=box, style="filled", color="black"] ;
+0 [label="spread1 <= -6.318\ngini = 0.363\nsamples = 130\nvalue = [31, 99]\nclass = healthy", fillcolor="#77bced"] ;
+1 [label="MDVP:Fhi(Hz) <= 229.364\ngini = 0.456\nsamples = 37\nvalue = [24, 13]\nclass = Parkinson's", fillcolor="#f3c5a4"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label="DFA <= 0.728\ngini = 0.491\nsamples = 23\nvalue = [10, 13]\nclass = healthy", fillcolor="#d1e8f9"] ;
+1 -> 2 ;
+3 [label="gini = 0.153\nsamples = 12\nvalue = [1, 11]\nclass = healthy", fillcolor="#4ba6e7"] ;
+2 -> 3 ;
+4 [label="gini = 0.298\nsamples = 11\nvalue = [9, 2]\nclass = Parkinson's", fillcolor="#eb9d65"] ;
+2 -> 4 ;
+5 [label="gini = 0.0\nsamples = 14\nvalue = [14, 0]\nclass = Parkinson's", fillcolor="#e58139"] ;
+1 -> 5 ;
+6 [label="D2 <= 2.062\ngini = 0.139\nsamples = 93\nvalue = [7, 86]\nclass = healthy", fillcolor="#49a5e7"] ;
+0 -> 6 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+7 [label="gini = 0.43\nsamples = 16\nvalue = [5, 11]\nclass = healthy", fillcolor="#93caf1"] ;
+6 -> 7 ;
+8 [label="MDVP:Fo(Hz) <= 202.718\ngini = 0.051\nsamples = 77\nvalue = [2, 75]\nclass = healthy", fillcolor="#3ea0e6"] ;
+6 -> 8 ;
+9 [label="gini = 0.0\nsamples = 72\nvalue = [0, 72]\nclass = healthy", fillcolor="#399de5"] ;
+8 -> 9 ;
+10 [label="gini = 0.48\nsamples = 5\nvalue = [2, 3]\nclass = healthy", fillcolor="#bddef6"] ;
+8 -> 10 ;
+}
