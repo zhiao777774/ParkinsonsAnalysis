@@ -125,7 +125,6 @@ if __name__ == '__main__':
     clas = np.round(pred)
     file_names = wave_test_generator.filenames
     '''
-    
 
     df = pd.DataFrame({
         'File Name': file_names,

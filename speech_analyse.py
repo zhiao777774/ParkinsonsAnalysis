@@ -76,6 +76,7 @@ def correlation():
     plt.savefig('./assets/image/correlation_heatmap_3.png')
     plt.show()
 
+
 def decisionTree(output_file=False, *, file_name=None, file_format='png'):
     decision_tree = DecisionTreeClassifier()
 
@@ -216,11 +217,10 @@ def logisticRegressionWithStandard():
     return grid
 
 
-def log_reg_model_credit_card_applications_predict(x, log_reg):
-    return 1 / (1 + np.exp(-(log_reg.intercept_ + log_reg.coef_ * x)))
-
-
 def logisticRegressionCV():
+    log_reg_model_predict = lambda x, log_reg: \
+        1 / (1 + np.exp(-(log_reg.intercept_ + log_reg.coef_ * x)))
+
     scaler = StandardScaler()
     scaler.fit(x_train)
     x_train_scalered = scaler.transform(x_train)
@@ -236,12 +236,12 @@ def logisticRegressionCV():
     for n, c in zip(feature_names, clf.coef_[0]):
         print(f'{n}: {c}')
 
-    
+    # Draw confusion matrix
+    '''
     cf_matrix = confusion_matrix(y_test, clf.predict(scaler.transform(x_test)))
     print(cf_matrix)
     group_names = ['True Neg','False Pos','False Neg','True Pos']
-    group_counts = ['{0:0.0f}'.format(value) for value in
-                    cf_matrix.flatten()]
+    group_counts = ['{0:0.0f}'.format(value) for value in cf_matrix.flatten()]
     group_percentages = ['{0:.2%}'.format(value) for value in
                          cf_matrix.flatten()/np.sum(cf_matrix)]
     labels = [f'{v1}\n{v2}\n{v3}' for v1, v2, v3 in
@@ -254,29 +254,31 @@ def logisticRegressionCV():
     plt.ylabel('True label')
     plt.xlabel('Predicted label')
     plt.show()
-    plt.savefig('./assets/image/logistic regression\'s confusion matrix.png')
-    
     '''
-    logit_model=sm.Logit(y_train, x_train_scalered)
+    
+    # gemerate model report 
+    '''
+    logit_model = sm.Logit(y_train, x_train_scalered)
     logit_model.exog_names[:] = feature_names
-    result=logit_model.fit()
+    report = logit_model.fit()
 
     plt.rc('figure', figsize=(12, 7))
-    plt.text(0.01, 0.05, str(result.summary()), {'fontsize': 10}, fontproperties = 'monospace')
+    plt.text(0.01, 0.05, str(report.summary()), {'fontsize': 10}, fontproperties = 'monospace')
     plt.axis('off')
     plt.tight_layout()
     plt.show()
     '''
 
+    # Draw ROC curve
     '''
-    fpr,tpr,threshold = roc_curve(y_test, clf.predict(x_test_scalered)) ###計算真正率和假正率
-    roc_auc = auc(fpr,tpr) ###計算auc的值
+    fpr,tpr,threshold = roc_curve(y_test, clf.predict(x_test_scalered)) # 計算真正率和假正率
+    roc_auc = auc(fpr, tpr) # 計算auc值
 
     plt.figure()
     lw = 2
     plt.figure(figsize=(10,10))
     plt.plot(fpr, tpr, color='r',
-             lw=lw, label='ROC curve (area = %0.2f)' % roc_auc) ###假正率為橫座標，真正率為縱座標做曲線
+             lw=lw, label='ROC curve (area = %0.2f)' % roc_auc) # 假正率為橫座標，真正率為縱座標做曲線
     plt.plot([0, 1], [0, 1], color='navy', lw=lw, linestyle='--')
     plt.xlim([0.0, 1.0])
     plt.ylim([0.0, 1.0])
@@ -284,38 +286,6 @@ def logisticRegressionCV():
     plt.ylabel('True Positive Rate')
     plt.title('Receiver operating characteristic example')
     plt.legend(loc="lower right")
-    plt.show()
-    '''
-
-    '''
-    plt.figure(figsize=(10, 10))
-    plt.scatter(x=x_train_scalered, y=log_reg_model_credit_card_applications_predict(
-        x_train_scalered, clf), c='blueviolet', alpha=0.5)
-
-    orange_rect = patches.Rectangle(
-        (-2.7, 0.5), 9, 0.5, linewidth=1, edgecolor='orange', facecolor='navajowhite', alpha=0.5)
-    plt.gca().add_patch(orange_rect)
-    blue_rect = patches.Rectangle(
-        (-2.7, 0), 9, 0.5, linewidth=1, edgecolor='blue', facecolor='steelblue', alpha=0.5)
-    plt.gca().add_patch(blue_rect)
-    plt.title("Predictions on Training Data", y=1.015, fontsize=20)
-    plt.xlabel("feature scaled", labelpad=14)
-    plt.ylabel("probability of a prediction being class 1 (accepted)", labelpad=14)
-    plt.show()
-
-    plt.figure(figsize=(10, 10))
-    plt.scatter(x=x_test_scalered, y=log_reg_model_credit_card_applications_predict(
-        x_test_scalered, clf), c='blueviolet', alpha=0.5)
-
-    orange_rect = patches.Rectangle(
-        (-2.7, 0.5), 9, 0.5, linewidth=1, edgecolor='orange', facecolor='navajowhite', alpha=0.5)
-    plt.gca().add_patch(orange_rect)
-    blue_rect = patches.Rectangle(
-        (-2.7, 0), 9, 0.5, linewidth=1, edgecolor='blue', facecolor='steelblue', alpha=0.5)
-    plt.gca().add_patch(blue_rect)
-    plt.title("Predictions on Test Data", y=1.015, fontsize=20)
-    plt.xlabel("feature scaled", labelpad=14)
-    plt.ylabel("probability of a prediction being class 1 (accepted)", labelpad=14)
     plt.show()
     '''
 
